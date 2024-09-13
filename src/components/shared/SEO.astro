@@ -1,0 +1,110 @@
+---
+import type { Preload } from "@/interfaces/preload"
+
+interface Props {
+  title: string
+  description: string
+  preload?: Array<Preload>
+  canonical?: string
+  image?: string
+}
+
+const {
+  title,
+  description,
+  preload,
+  canonical,
+  image = "/favicon.svg"
+} = Astro.props
+
+const determineCanonicalURL = () => {
+  if (Astro.url.host.includes("localhost")) return "http://localhost:4321"
+  return canonical || Astro.url.pathname
+}
+
+const canonicalURL = new URL(determineCanonicalURL(), Astro.site)
+---
+
+<title>{title}</title>
+
+<meta charset="UTF-8" />
+
+<meta
+  name="description"
+  content={description}
+/>
+
+{
+  preload?.map(({ href, as, type, rel = "preload", crossorigin }) => (
+    <link
+      {rel}
+      {href}
+      {as}
+      {type}
+      {crossorigin}
+    />
+  ))
+}
+
+<link
+  rel="canonical"
+  href={canonicalURL}
+/>
+<meta
+  name="viewport"
+  content="width=device-width"
+/>
+<meta
+  name="theme-color"
+  content="#393028"
+/>
+
+<meta
+  name="keywords"
+  content="la casa verde, casa, hogar, diseño de interiores, decoración, muebles, accesorios"
+/>
+
+<meta
+  property="og:image"
+  content={new URL(image, Astro.url)}
+/>
+
+<meta
+  property="og:title"
+  content={title}
+/>
+<meta
+  property="og:description"
+  content={description}
+/>
+<meta
+  property="og:url"
+  content={Astro.url}
+/>
+<meta
+  property="og:site_name"
+  content="La Casa Verde"
+/>
+<meta
+  property="og:type"
+  content="website"
+/>
+<meta
+  property="og:locale"
+  content="es_CO"
+/>
+
+<meta
+  name="robots"
+  content="index, follow"
+/>
+<meta
+  name="googlebot"
+  content="index, follow"
+/>
+
+<link
+  rel="icon"
+  type="image/svg+xml"
+  href="/favicon.svg"
+/>

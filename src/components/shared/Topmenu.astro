@@ -1,0 +1,49 @@
+---
+const navigationItems = {
+  nosotros: {
+    title: "Nosotros",
+    url: "/"
+  },
+  proyectos: {
+    title: "Proyectos",
+    url: "/proyectos"
+  },
+  lineasDeNegocio: {
+    title: "Líneas de Negocio",
+    url: "/lineas-de-negocio"
+  },
+  contacto: {
+    title: "Contacto",
+    url: "/contacto"
+  }
+}
+---
+
+<header class="flex justify-between items-center px-20 py-3 fixed w-full z-50">
+  <section>
+    <a href="/">
+      <img
+        src="/images/logo.webp"
+        alt="La Casa Verde Logo"
+        class="w-20"
+      />
+    </a>
+  </section>
+
+  <nav>
+    <ul class="flex gap-7 justify-end items-center">
+      {
+        Object.entries(navigationItems).map(([_, value]) => (
+          <li>
+            <a
+              href={value.url}
+              class="uppercase text-sm font-semibold text-white"
+            >
+              {value.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
